@@ -36,16 +36,164 @@ h2{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut)
 .k-muted .sig{opacity:.7}
 .foot{color:var(--mut);font-size:12px;margin-top:20px;line-height:1.6}
 .foot b{color:var(--tx);font-weight:600}
+/* watchlist editor accordion */
+.acc summary{cursor:pointer;list-style:none;padding:13px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary .chev{transition:transform .2s}.acc[open] summary .chev{transform:rotate(180deg)}
+.ebody{padding:0 14px 14px}
+.enote{font-size:12.5px;color:var(--mut);margin:0 0 12px;line-height:1.5}
+.egrp{margin:0 0 14px}
+.eglabel{font-size:12px;font-weight:650;margin:0 0 8px;color:var(--tx)}
+.eitem{border:1px solid var(--bd);border-radius:12px;padding:9px 10px;margin:0 0 8px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.efield{display:flex;flex-direction:column;gap:3px;font-size:11px;color:var(--mut);min-width:0}
+.efield span{text-transform:uppercase;letter-spacing:.03em}
+.efield input{font-size:16px;padding:8px 9px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);width:100%}
+.ebtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.ebtns button,.ebtns a{font-size:14px;padding:10px 14px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+.ebtns button.primary{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.emsg{font-size:12.5px;color:var(--go);margin-top:8px;min-height:16px}
 </style></head><body><div class="wrap">
 <h1>India-Trading — EOD Signals</h1>
-<p class="sub">Updated Sat 11 Jul 2026, 16:43 IST · auto-refreshes · signals only — verify price &amp; volume on your broker before acting</p>
+<p class="sub">Updated Sat 11 Jul 2026, 16:48 IST · auto-refreshes · signals only — verify price &amp; volume on your broker before acting</p>
 <div class="card"><h2>Actionable</h2><div class="alerts"><div class="alert a-sell"><span class="dot"></span><div>SELL — ATLANTAELE closed below 50-DMA (₹1798.7): reduce / exit</div></div><div class="alert a-sell"><span class="dot"></span><div>SELL — JSLL closed below 50-DMA (₹625.4) & 200-DMA: reduce / exit</div></div><div class="alert a-near"><span class="dot"></span><div>APPROACHING — NAVINFLUOR ₹7712.0, -1.3% from pivot ₹7810.0</div></div><div class="alert a-near"><span class="dot"></span><div>APPROACHING — BAJAJ-AUTO ₹10156.0, -1.4% from pivot ₹10298.0</div></div><div class="alert a-near"><span class="dot"></span><div>APPROACHING — NAM-INDIA ₹1212.7, -1.7% from trigger ₹1233.5</div></div></div></div>
 <div class="card"><h2>Holdings · sell watch</h2><div class="row k-sell"><div class="r1"><span class="sym">ATLANTAELE · surveillance T2T/ASM</span><span class="pr">₹1695.4<span class="chg up">+1.9%</span></span></div><div class="sig">TREND EXIT — closed below 50-DMA ₹1798.7</div></div><div class="row k-ok"><div class="r1"><span class="sym">ZENTEC · defense winner</span><span class="pr">₹1880.4<span class="chg up">+3.7%</span></span></div><div class="sig">holding · above 50-DMA ₹1722.8</div></div><div class="row k-ok"><div class="r1"><span class="sym">DATAPATTNS · defense winner</span><span class="pr">₹4343.0<span class="chg up">+1.4%</span></span></div><div class="sig">holding · above 50-DMA ₹4281.3</div></div><div class="row k-ok"><div class="r1"><span class="sym">LODHA · realty winner</span><span class="pr">₹1220.8<span class="chg up">+2.4%</span></span></div><div class="sig">holding · above 50-DMA ₹938.3</div></div><div class="row k-ok"><div class="r1"><span class="sym">KSOLVES · exit candidate</span><span class="pr">₹288.2<span class="chg up">+2.0%</span></span></div><div class="sig">holding · above 50-DMA ₹285.5</div></div><div class="row k-sell"><div class="r1"><span class="sym">JSLL · exit candidate</span><span class="pr">₹593.0<span class="chg up">+0.2%</span></span></div><div class="sig">TREND EXIT — closed below 50-DMA ₹625.4 & 200-DMA</div></div></div>
 <div class="card"><h2>Momentum · VCP</h2><div class="row k-near"><div class="r1"><span class="sym">NAVINFLUOR</span><span class="pr">₹7712.0<span class="chg up">+0.3%</span></span></div><div class="sig">approaching · -1.3% from pivot ₹7810.0</div></div><div class="row k-ok"><div class="r1"><span class="sym">NLCINDIA</span><span class="pr">₹314.9<span class="chg up">+3.8%</span></span></div><div class="sig">-4.3% from pivot ₹329.1</div></div><div class="row k-near"><div class="r1"><span class="sym">BAJAJ-AUTO</span><span class="pr">₹10156.0<span class="chg up">+0.0%</span></span></div><div class="sig">approaching · -1.4% from pivot ₹10298.0</div></div><div class="row k-ok"><div class="r1"><span class="sym">RADICO</span><span class="pr">₹4073.7<span class="chg down">-0.4%</span></span></div><div class="sig">-2.1% from pivot ₹4161.8</div></div><div class="row k-ok"><div class="r1"><span class="sym">STAR</span><span class="pr">₹1082.6<span class="chg up">+0.6%</span></span></div><div class="sig">-5.8% from pivot ₹1149.8</div></div></div>
 <div class="card"><h2>CANSLIM leaders</h2><div class="row k-ok"><div class="r1"><span class="sym">KRISHNADEF · defense</span><span class="pr">₹1315.2<span class="chg up">+0.1%</span></span></div><div class="sig">-6.0% from trigger ₹1398.6</div></div><div class="row k-ok"><div class="r1"><span class="sym">RRKABEL · electrification</span><span class="pr">₹2225.7<span class="chg up">+0.9%</span></span></div><div class="sig">-12.7% from trigger ₹2549.0</div></div><div class="row k-ok"><div class="r1"><span class="sym">SKYGOLD · gold jewellery</span><span class="pr">₹623.8<span class="chg up">+0.1%</span></span></div><div class="sig">-2.2% from trigger ₹638.0</div></div><div class="row k-ok"><div class="r1"><span class="sym">THANGAMAYL · gold jewellery</span><span class="pr">₹6540.5<span class="chg down">-0.9%</span></span></div><div class="sig">-8.7% from trigger ₹7165.0</div></div><div class="row k-near"><div class="r1"><span class="sym">NAM-INDIA · asset manager</span><span class="pr">₹1212.7<span class="chg down">-0.5%</span></span></div><div class="sig">approaching · -1.7% from trigger ₹1233.5</div></div></div>
+<details class="card acc" id="wl-editor"><summary>⚙ Watchlist editor<span class="chev">⌄</span></summary><div class="ebody"><p class="enote">Edit levels/stops below, then <b>Copy</b> or <b>Download</b> the updated <code>watchlist.json</code> and commit it on GitHub — a static page can't save changes itself. Add a <code>stop</code> to a VCP/CANSLIM row to flip it into sell mode.</p><div class="egrp"><div class="eglabel">Holdings</div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="holdings" data-i="0" data-f="symbol" data-t="str" inputmode="text" value="ATLANTAELE"></label><label class="efield"><span>ticker</span><input data-g="holdings" data-i="0" data-f="ticker" data-t="str" inputmode="text" value="ATLANTAELE.NS"></label><label class="efield"><span>stop</span><input data-g="holdings" data-i="0" data-f="stop" data-t="num" inputmode="decimal" value="1500"></label><label class="efield"><span>note</span><input data-g="holdings" data-i="0" data-f="note" data-t="str" inputmode="text" value="surveillance T2T/ASM"></label></div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="holdings" data-i="1" data-f="symbol" data-t="str" inputmode="text" value="ZENTEC"></label><label class="efield"><span>ticker</span><input data-g="holdings" data-i="1" data-f="ticker" data-t="str" inputmode="text" value="ZENTEC.NS"></label><label class="efield"><span>stop</span><input data-g="holdings" data-i="1" data-f="stop" data-t="num" inputmode="decimal" value=""></label><label class="efield"><span>note</span><input data-g="holdings" data-i="1" data-f="note" data-t="str" inputmode="text" value="defense winner"></label></div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="holdings" data-i="2" data-f="symbol" data-t="str" inputmode="text" value="DATAPATTNS"></label><label class="efield"><span>ticker</span><input data-g="holdings" data-i="2" data-f="ticker" data-t="str" inputmode="text" value="DATAPATTNS.NS"></label><label class="efield"><span>stop</span><input data-g="holdings" data-i="2" data-f="stop" data-t="num" inputmode="decimal" value=""></label><label class="efield"><span>note</span><input data-g="holdings" data-i="2" data-f="note" data-t="str" inputmode="text" value="defense winner"></label></div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="holdings" data-i="3" data-f="symbol" data-t="str" inputmode="text" value="LODHA"></label><label class="efield"><span>ticker</span><input data-g="holdings" data-i="3" data-f="ticker" data-t="str" inputmode="text" value="LODHA.NS"></label><label class="efield"><span>stop</span><input data-g="holdings" data-i="3" data-f="stop" data-t="num" inputmode="decimal" value=""></label><label class="efield"><span>note</span><input data-g="holdings" data-i="3" data-f="note" data-t="str" inputmode="text" value="realty winner"></label></div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="holdings" data-i="4" data-f="symbol" data-t="str" inputmode="text" value="KSOLVES"></label><label class="efield"><span>ticker</span><input data-g="holdings" data-i="4" data-f="ticker" data-t="str" inputmode="text" value="KSOLVES.NS"></label><label class="efield"><span>stop</span><input data-g="holdings" data-i="4" data-f="stop" data-t="num" inputmode="decimal" value=""></label><label class="efield"><span>note</span><input data-g="holdings" data-i="4" data-f="note" data-t="str" inputmode="text" value="exit candidate"></label></div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="holdings" data-i="5" data-f="symbol" data-t="str" inputmode="text" value="JSLL"></label><label class="efield"><span>ticker</span><input data-g="holdings" data-i="5" data-f="ticker" data-t="str" inputmode="text" value="JSLL.NS"></label><label class="efield"><span>stop</span><input data-g="holdings" data-i="5" data-f="stop" data-t="num" inputmode="decimal" value=""></label><label class="efield"><span>note</span><input data-g="holdings" data-i="5" data-f="note" data-t="str" inputmode="text" value="exit candidate"></label></div></div><div class="egrp"><div class="eglabel">Momentum · VCP</div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="momentum_vcp" data-i="0" data-f="symbol" data-t="str" inputmode="text" value="NAVINFLUOR"></label><label class="efield"><span>ticker</span><input data-g="momentum_vcp" data-i="0" data-f="ticker" data-t="str" inputmode="text" value="NAVINFLUOR.NS"></label><label class="efield"><span>pivot</span><input data-g="momentum_vcp" data-i="0" data-f="pivot" data-t="num" inputmode="decimal" value="7810.0"></label><label class="efield"><span>stop</span><input data-g="momentum_vcp" data-i="0" data-f="stop" data-t="num" inputmode="decimal" value=""></label></div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="momentum_vcp" data-i="1" data-f="symbol" data-t="str" inputmode="text" value="NLCINDIA"></label><label class="efield"><span>ticker</span><input data-g="momentum_vcp" data-i="1" data-f="ticker" data-t="str" inputmode="text" value="NLCINDIA.NS"></label><label class="efield"><span>pivot</span><input data-g="momentum_vcp" data-i="1" data-f="pivot" data-t="num" inputmode="decimal" value="329.1"></label><label class="efield"><span>stop</span><input data-g="momentum_vcp" data-i="1" data-f="stop" data-t="num" inputmode="decimal" value=""></label></div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="momentum_vcp" data-i="2" data-f="symbol" data-t="str" inputmode="text" value="BAJAJ-AUTO"></label><label class="efield"><span>ticker</span><input data-g="momentum_vcp" data-i="2" data-f="ticker" data-t="str" inputmode="text" value="BAJAJ-AUTO.NS"></label><label class="efield"><span>pivot</span><input data-g="momentum_vcp" data-i="2" data-f="pivot" data-t="num" inputmode="decimal" value="10298.0"></label><label class="efield"><span>stop</span><input data-g="momentum_vcp" data-i="2" data-f="stop" data-t="num" inputmode="decimal" value=""></label></div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="momentum_vcp" data-i="3" data-f="symbol" data-t="str" inputmode="text" value="RADICO"></label><label class="efield"><span>ticker</span><input data-g="momentum_vcp" data-i="3" data-f="ticker" data-t="str" inputmode="text" value="RADICO.NS"></label><label class="efield"><span>pivot</span><input data-g="momentum_vcp" data-i="3" data-f="pivot" data-t="num" inputmode="decimal" value="4161.8"></label><label class="efield"><span>stop</span><input data-g="momentum_vcp" data-i="3" data-f="stop" data-t="num" inputmode="decimal" value=""></label></div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="momentum_vcp" data-i="4" data-f="symbol" data-t="str" inputmode="text" value="STAR"></label><label class="efield"><span>ticker</span><input data-g="momentum_vcp" data-i="4" data-f="ticker" data-t="str" inputmode="text" value="STAR.NS"></label><label class="efield"><span>pivot</span><input data-g="momentum_vcp" data-i="4" data-f="pivot" data-t="num" inputmode="decimal" value="1149.8"></label><label class="efield"><span>stop</span><input data-g="momentum_vcp" data-i="4" data-f="stop" data-t="num" inputmode="decimal" value=""></label></div></div><div class="egrp"><div class="eglabel">CANSLIM leaders</div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="canslim_leaders" data-i="0" data-f="symbol" data-t="str" inputmode="text" value="KRISHNADEF"></label><label class="efield"><span>ticker</span><input data-g="canslim_leaders" data-i="0" data-f="ticker" data-t="str" inputmode="text" value="KRISHNADEF.NS"></label><label class="efield"><span>trigger</span><input data-g="canslim_leaders" data-i="0" data-f="trigger" data-t="num" inputmode="decimal" value="1398.6"></label><label class="efield"><span>theme</span><input data-g="canslim_leaders" data-i="0" data-f="theme" data-t="str" inputmode="text" value="defense"></label><label class="efield"><span>stop</span><input data-g="canslim_leaders" data-i="0" data-f="stop" data-t="num" inputmode="decimal" value=""></label></div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="canslim_leaders" data-i="1" data-f="symbol" data-t="str" inputmode="text" value="RRKABEL"></label><label class="efield"><span>ticker</span><input data-g="canslim_leaders" data-i="1" data-f="ticker" data-t="str" inputmode="text" value="RRKABEL.NS"></label><label class="efield"><span>trigger</span><input data-g="canslim_leaders" data-i="1" data-f="trigger" data-t="num" inputmode="decimal" value="2549.0"></label><label class="efield"><span>theme</span><input data-g="canslim_leaders" data-i="1" data-f="theme" data-t="str" inputmode="text" value="electrification"></label><label class="efield"><span>stop</span><input data-g="canslim_leaders" data-i="1" data-f="stop" data-t="num" inputmode="decimal" value=""></label></div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="canslim_leaders" data-i="2" data-f="symbol" data-t="str" inputmode="text" value="SKYGOLD"></label><label class="efield"><span>ticker</span><input data-g="canslim_leaders" data-i="2" data-f="ticker" data-t="str" inputmode="text" value="SKYGOLD.NS"></label><label class="efield"><span>trigger</span><input data-g="canslim_leaders" data-i="2" data-f="trigger" data-t="num" inputmode="decimal" value="638.0"></label><label class="efield"><span>theme</span><input data-g="canslim_leaders" data-i="2" data-f="theme" data-t="str" inputmode="text" value="gold jewellery"></label><label class="efield"><span>stop</span><input data-g="canslim_leaders" data-i="2" data-f="stop" data-t="num" inputmode="decimal" value=""></label></div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="canslim_leaders" data-i="3" data-f="symbol" data-t="str" inputmode="text" value="THANGAMAYL"></label><label class="efield"><span>ticker</span><input data-g="canslim_leaders" data-i="3" data-f="ticker" data-t="str" inputmode="text" value="THANGAMAYL.NS"></label><label class="efield"><span>trigger</span><input data-g="canslim_leaders" data-i="3" data-f="trigger" data-t="num" inputmode="decimal" value="7165.0"></label><label class="efield"><span>theme</span><input data-g="canslim_leaders" data-i="3" data-f="theme" data-t="str" inputmode="text" value="gold jewellery"></label><label class="efield"><span>stop</span><input data-g="canslim_leaders" data-i="3" data-f="stop" data-t="num" inputmode="decimal" value=""></label></div><div class="eitem"><label class="efield"><span>symbol</span><input data-g="canslim_leaders" data-i="4" data-f="symbol" data-t="str" inputmode="text" value="NAM-INDIA"></label><label class="efield"><span>ticker</span><input data-g="canslim_leaders" data-i="4" data-f="ticker" data-t="str" inputmode="text" value="NAM-INDIA.NS"></label><label class="efield"><span>trigger</span><input data-g="canslim_leaders" data-i="4" data-f="trigger" data-t="num" inputmode="decimal" value="1233.5"></label><label class="efield"><span>theme</span><input data-g="canslim_leaders" data-i="4" data-f="theme" data-t="str" inputmode="text" value="asset manager"></label><label class="efield"><span>stop</span><input data-g="canslim_leaders" data-i="4" data-f="stop" data-t="num" inputmode="decimal" value=""></label></div></div><div class="ebtns"><button type="button" class="primary" onclick="wlCopy()">Copy JSON</button><button type="button" onclick="wlDownload()">Download</button><a href="https://github.com/bardoliad12-wq/india-trading-signals/edit/main/watchlist.json" target="_blank" rel="noopener">Edit on GitHub ↗</a></div><div class="emsg" id="wlmsg"></div></div></details>
 <p class="foot">
 <b>Buy</b> = close above pivot/trigger on ≥1.5× avg volume (breakout shows a suggested initial stop ≈8% below).<br>
 <b>Sell (price-based):</b> close ≤ your stop, or close below the 50-DMA (trend exit — trails winners up). ⚠ <b>distribution</b> = a down day on &gt;1.5× volume — a warning, not a sell.<br>
 Add a numeric <code>stop</code> to a VCP/CANSLIM item in watchlist.json to switch it from buy-watch to sell mode.<br>
 Not investment advice. Educational signals from public price data; patterns fail — always use a stop.</p>
-</div></body></html>
+</div><script id="wl-data" type="application/json">{
+  "_howto": "Signals-only (no P&L). BUY watch: momentum_vcp/canslim_leaders items show buy triggers until you enter. To flip one to SELL mode after you buy the breakout, add a numeric \"stop\" to that item. Sell signals are all price-based: close <= stop, OR close < 50-DMA (trend exit). A down day on >1.5x volume shows a soft 'distribution' warning (not a sell). Levels are static snapshots from the last screen; refresh periodically.",
+  "holdings": [
+    {
+      "symbol": "ATLANTAELE",
+      "ticker": "ATLANTAELE.NS",
+      "stop": 1500,
+      "note": "surveillance T2T/ASM"
+    },
+    {
+      "symbol": "ZENTEC",
+      "ticker": "ZENTEC.NS",
+      "stop": null,
+      "note": "defense winner"
+    },
+    {
+      "symbol": "DATAPATTNS",
+      "ticker": "DATAPATTNS.NS",
+      "stop": null,
+      "note": "defense winner"
+    },
+    {
+      "symbol": "LODHA",
+      "ticker": "LODHA.NS",
+      "stop": null,
+      "note": "realty winner"
+    },
+    {
+      "symbol": "KSOLVES",
+      "ticker": "KSOLVES.NS",
+      "stop": null,
+      "note": "exit candidate"
+    },
+    {
+      "symbol": "JSLL",
+      "ticker": "JSLL.NS",
+      "stop": null,
+      "note": "exit candidate"
+    }
+  ],
+  "momentum_vcp": [
+    {
+      "symbol": "NAVINFLUOR",
+      "ticker": "NAVINFLUOR.NS",
+      "pivot": 7810.0,
+      "stop": null
+    },
+    {
+      "symbol": "NLCINDIA",
+      "ticker": "NLCINDIA.NS",
+      "pivot": 329.1,
+      "stop": null
+    },
+    {
+      "symbol": "BAJAJ-AUTO",
+      "ticker": "BAJAJ-AUTO.NS",
+      "pivot": 10298.0,
+      "stop": null
+    },
+    {
+      "symbol": "RADICO",
+      "ticker": "RADICO.NS",
+      "pivot": 4161.8,
+      "stop": null
+    },
+    {
+      "symbol": "STAR",
+      "ticker": "STAR.NS",
+      "pivot": 1149.8,
+      "stop": null
+    }
+  ],
+  "canslim_leaders": [
+    {
+      "symbol": "KRISHNADEF",
+      "ticker": "KRISHNADEF.NS",
+      "trigger": 1398.6,
+      "theme": "defense",
+      "stop": null
+    },
+    {
+      "symbol": "RRKABEL",
+      "ticker": "RRKABEL.NS",
+      "trigger": 2549.0,
+      "theme": "electrification",
+      "stop": null
+    },
+    {
+      "symbol": "SKYGOLD",
+      "ticker": "SKYGOLD.NS",
+      "trigger": 638.0,
+      "theme": "gold jewellery",
+      "stop": null
+    },
+    {
+      "symbol": "THANGAMAYL",
+      "ticker": "THANGAMAYL.NS",
+      "trigger": 7165.0,
+      "theme": "gold jewellery",
+      "stop": null
+    },
+    {
+      "symbol": "NAM-INDIA",
+      "ticker": "NAM-INDIA.NS",
+      "trigger": 1233.5,
+      "theme": "asset manager",
+      "stop": null
+    }
+  ]
+}</script><script>
+function wlBuild(){
+  var wl = JSON.parse(document.getElementById('wl-data').textContent);
+  var inp = document.querySelectorAll('#wl-editor [data-g]');
+  for (var k=0;k<inp.length;k++){
+    var el=inp[k], g=el.getAttribute('data-g'), i=+el.getAttribute('data-i'),
+        f=el.getAttribute('data-f'), t=el.getAttribute('data-t'), v=el.value.trim(), val;
+    if(t==='num'){ val = (v==='') ? null : (isNaN(parseFloat(v)) ? v : parseFloat(v)); }
+    else { val = v; }
+    wl[g][i][f]=val;
+  }
+  return JSON.stringify(wl, null, 2);
+}
+function wlMsg(m){ document.getElementById('wlmsg').textContent = m; }
+function wlCopy(){ var s=wlBuild();
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(s).then(function(){wlMsg('Copied. Paste into watchlist.json on GitHub and commit to apply.');},
+                                          function(){wlMsg('Copy blocked by browser — use Download instead.');});
+  } else { wlMsg('Clipboard unsupported — use Download.'); } }
+function wlDownload(){ var s=wlBuild(); var b=new Blob([s],{type:'application/json'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='watchlist.json'; a.click();
+  wlMsg('Downloaded watchlist.json — commit it on GitHub to apply.'); }
+</script></body></html>

@@ -184,12 +184,97 @@ h2{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut)
 .k-muted .sig{opacity:.7}
 .foot{color:var(--mut);font-size:12px;margin-top:20px;line-height:1.6}
 .foot b{color:var(--tx);font-weight:600}
+/* watchlist editor accordion */
+.acc summary{cursor:pointer;list-style:none;padding:13px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary .chev{transition:transform .2s}.acc[open] summary .chev{transform:rotate(180deg)}
+.ebody{padding:0 14px 14px}
+.enote{font-size:12.5px;color:var(--mut);margin:0 0 12px;line-height:1.5}
+.egrp{margin:0 0 14px}
+.eglabel{font-size:12px;font-weight:650;margin:0 0 8px;color:var(--tx)}
+.eitem{border:1px solid var(--bd);border-radius:12px;padding:9px 10px;margin:0 0 8px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.efield{display:flex;flex-direction:column;gap:3px;font-size:11px;color:var(--mut);min-width:0}
+.efield span{text-transform:uppercase;letter-spacing:.03em}
+.efield input{font-size:16px;padding:8px 9px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);width:100%}
+.ebtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.ebtns button,.ebtns a{font-size:14px;padding:10px 14px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+.ebtns button.primary{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.emsg{font-size:12.5px;color:var(--go);margin-top:8px;min-height:16px}
 """
 
 
-def render(alerts, hold, mom, cans):
+GH_EDIT_URL = "https://github.com/bardoliad12-wq/india-trading-signals/edit/main/watchlist.json"
+
+EDITOR_JS = """
+function wlBuild(){
+  var wl = JSON.parse(document.getElementById('wl-data').textContent);
+  var inp = document.querySelectorAll('#wl-editor [data-g]');
+  for (var k=0;k<inp.length;k++){
+    var el=inp[k], g=el.getAttribute('data-g'), i=+el.getAttribute('data-i'),
+        f=el.getAttribute('data-f'), t=el.getAttribute('data-t'), v=el.value.trim(), val;
+    if(t==='num'){ val = (v==='') ? null : (isNaN(parseFloat(v)) ? v : parseFloat(v)); }
+    else { val = v; }
+    wl[g][i][f]=val;
+  }
+  return JSON.stringify(wl, null, 2);
+}
+function wlMsg(m){ document.getElementById('wlmsg').textContent = m; }
+function wlCopy(){ var s=wlBuild();
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(s).then(function(){wlMsg('Copied. Paste into watchlist.json on GitHub and commit to apply.');},
+                                          function(){wlMsg('Copy blocked by browser — use Download instead.');});
+  } else { wlMsg('Clipboard unsupported — use Download.'); } }
+function wlDownload(){ var s=wlBuild(); var b=new Blob([s],{type:'application/json'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='watchlist.json'; a.click();
+  wlMsg('Downloaded watchlist.json — commit it on GitHub to apply.'); }
+"""
+
+
+def editor(wl):
+    groups = [("holdings", "Holdings"), ("momentum_vcp", "Momentum · VCP"),
+              ("canslim_leaders", "CANSLIM leaders")]
+    out = []
+    for g, label in groups:
+        out.append(f'<div class="egrp"><div class="eglabel">{html.escape(label)}</div>')
+        for i, item in enumerate(wl.get(g, [])):
+            out.append('<div class="eitem">')
+            for f, v in item.items():
+                if f.startswith("_"):
+                    continue
+                is_num = v is None or (isinstance(v, (int, float)) and not isinstance(v, bool))
+                t = "num" if is_num else "str"
+                val = "" if v is None else html.escape(str(v), quote=True)
+                out.append(
+                    f'<label class="efield"><span>{html.escape(f)}</span>'
+                    f'<input data-g="{g}" data-i="{i}" data-f="{html.escape(f, quote=True)}" '
+                    f'data-t="{t}" inputmode="{"decimal" if is_num else "text"}" value="{val}"></label>')
+            out.append('</div>')
+        out.append('</div>')
+    return "".join(out)
+
+
+def accordion(wl):
+    body = (
+        '<p class="enote">Edit levels/stops below, then <b>Copy</b> or <b>Download</b> the updated '
+        '<code>watchlist.json</code> and commit it on GitHub — a static page can\'t save changes itself. '
+        'Add a <code>stop</code> to a VCP/CANSLIM row to flip it into sell mode.</p>'
+        + editor(wl)
+        + '<div class="ebtns"><button type="button" class="primary" onclick="wlCopy()">Copy JSON</button>'
+          '<button type="button" onclick="wlDownload()">Download</button>'
+          f'<a href="{GH_EDIT_URL}" target="_blank" rel="noopener">Edit on GitHub ↗</a></div>'
+          '<div class="emsg" id="wlmsg"></div>')
+    acc = ('<details class="card acc" id="wl-editor"><summary>⚙ Watchlist editor'
+           '<span class="chev">⌄</span></summary><div class="ebody">' + body + '</div></details>')
+    wl_json = json.dumps(wl, ensure_ascii=False, indent=2).replace("</", "<\\/")
+    scripts = (f'<script id="wl-data" type="application/json">{wl_json}</script>'
+               f'<script>{EDITOR_JS}</script>')
+    return acc, scripts
+
+
+def render(alerts, hold, mom, cans, wl):
     now = dt.datetime.now(IST)
     akmap = {"go": "a-go", "sell": "a-sell", "warn": "a-warn", "near": "a-near"}
+    acc, scripts = accordion(wl)
 
     def rows_html(rows):
         out = []
@@ -226,12 +311,13 @@ def render(alerts, hold, mom, cans):
 <div class="card"><h2>Holdings · sell watch</h2>{rows_html(hold)}</div>
 <div class="card"><h2>Momentum · VCP</h2>{rows_html(mom)}</div>
 <div class="card"><h2>CANSLIM leaders</h2>{rows_html(cans)}</div>
+{acc}
 <p class="foot">
 <b>Buy</b> = close above pivot/trigger on ≥1.5× avg volume (breakout shows a suggested initial stop ≈8% below).<br>
 <b>Sell (price-based):</b> close ≤ your stop, or close below the 50-DMA (trend exit — trails winners up). ⚠ <b>distribution</b> = a down day on &gt;1.5× volume — a warning, not a sell.<br>
 Add a numeric <code>stop</code> to a VCP/CANSLIM item in watchlist.json to switch it from buy-watch to sell mode.<br>
 Not investment advice. Educational signals from public price data; patterns fail — always use a stop.</p>
-</div></body></html>"""
+</div>{scripts}</body></html>"""
 
 
 def main():
@@ -242,7 +328,7 @@ def main():
     alerts, hold, mom, cans = build(wl, data)
     os.makedirs(DOCS, exist_ok=True)
     with open(os.path.join(DOCS, "index.html"), "w") as f:
-        f.write(render(alerts, hold, mom, cans))
+        f.write(render(alerts, hold, mom, cans, wl))
 
     hp = os.path.join(DOCS, "history.json")
     hist = []
