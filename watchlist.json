@@ -1,25 +1,25 @@
 {
-  "_comment": "Signals-only fetch list for the public EOD dashboard. NO cost basis / quantities / P&L here by design. Edit + commit to update the daily fetch list.",
-  "positions_stopwatch": [
+  "_howto": "Signals-only (no P&L). BUY watch: momentum_vcp/canslim_leaders items show buy triggers until you enter. To flip one to SELL mode after you buy the breakout, add a numeric \"stop\" to that item. Sell signals are all price-based: close <= stop, OR close < 50-DMA (trend exit). A down day on >1.5x volume shows a soft 'distribution' warning (not a sell). Levels are static snapshots from the last screen; refresh periodically.",
+  "holdings": [
     {"symbol": "ATLANTAELE", "ticker": "ATLANTAELE.NS", "stop": 1500, "note": "surveillance T2T/ASM"},
-    {"symbol": "ZENTEC", "ticker": "ZENTEC.NS", "stop": null, "note": "defense winner - trail"},
-    {"symbol": "DATAPATTNS", "ticker": "DATAPATTNS.NS", "stop": null, "note": "defense winner - trail"},
-    {"symbol": "LODHA", "ticker": "LODHA.NS", "stop": null, "note": "realty winner - trail"},
+    {"symbol": "ZENTEC", "ticker": "ZENTEC.NS", "stop": null, "note": "defense winner"},
+    {"symbol": "DATAPATTNS", "ticker": "DATAPATTNS.NS", "stop": null, "note": "defense winner"},
+    {"symbol": "LODHA", "ticker": "LODHA.NS", "stop": null, "note": "realty winner"},
     {"symbol": "KSOLVES", "ticker": "KSOLVES.NS", "stop": null, "note": "exit candidate"},
     {"symbol": "JSLL", "ticker": "JSLL.NS", "stop": null, "note": "exit candidate"}
   ],
   "momentum_vcp": [
-    {"symbol": "NAVINFLUOR", "ticker": "NAVINFLUOR.NS", "pivot": 7810.0},
-    {"symbol": "NLCINDIA", "ticker": "NLCINDIA.NS", "pivot": 329.10},
-    {"symbol": "BAJAJ-AUTO", "ticker": "BAJAJ-AUTO.NS", "pivot": 10298.0},
-    {"symbol": "RADICO", "ticker": "RADICO.NS", "pivot": 4161.80},
-    {"symbol": "STAR", "ticker": "STAR.NS", "pivot": 1149.80}
+    {"symbol": "NAVINFLUOR", "ticker": "NAVINFLUOR.NS", "pivot": 7810.0, "stop": null},
+    {"symbol": "NLCINDIA", "ticker": "NLCINDIA.NS", "pivot": 329.10, "stop": null},
+    {"symbol": "BAJAJ-AUTO", "ticker": "BAJAJ-AUTO.NS", "pivot": 10298.0, "stop": null},
+    {"symbol": "RADICO", "ticker": "RADICO.NS", "pivot": 4161.80, "stop": null},
+    {"symbol": "STAR", "ticker": "STAR.NS", "pivot": 1149.80, "stop": null}
   ],
   "canslim_leaders": [
-    {"symbol": "KRISHNADEF", "ticker": "KRISHNADEF.NS", "trigger": 1398.60, "theme": "defense"},
-    {"symbol": "RRKABEL", "ticker": "RRKABEL.NS", "trigger": 2549.0, "theme": "electrification"},
-    {"symbol": "SKYGOLD", "ticker": "SKYGOLD.NS", "trigger": 638.0, "theme": "gold jewellery"},
-    {"symbol": "THANGAMAYL", "ticker": "THANGAMAYL.NS", "trigger": 7165.0, "theme": "gold jewellery"},
-    {"symbol": "NAM-INDIA", "ticker": "NAM-INDIA.NS", "trigger": 1233.50, "theme": "asset manager"}
+    {"symbol": "KRISHNADEF", "ticker": "KRISHNADEF.NS", "trigger": 1398.60, "theme": "defense", "stop": null},
+    {"symbol": "RRKABEL", "ticker": "RRKABEL.NS", "trigger": 2549.0, "theme": "electrification", "stop": null},
+    {"symbol": "SKYGOLD", "ticker": "SKYGOLD.NS", "trigger": 638.0, "theme": "gold jewellery", "stop": null},
+    {"symbol": "THANGAMAYL", "ticker": "THANGAMAYL.NS", "trigger": 7165.0, "theme": "gold jewellery", "stop": null},
+    {"symbol": "NAM-INDIA", "ticker": "NAM-INDIA.NS", "trigger": 1233.50, "theme": "asset manager", "stop": null}
   ]
 }

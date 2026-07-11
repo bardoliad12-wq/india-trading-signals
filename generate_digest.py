@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """
-Generate the EOD signals dashboard (docs/index.html) from watchlist.json using
-yfinance. Runs on a GitHub Actions runner (real internet + volume + DMAs), so it
-gives accurate breakout/stop signals. Signals-only: NO cost basis / P&L.
+EOD signals dashboard (docs/index.html) from watchlist.json via yfinance.
+Runs on a GitHub Actions runner (real internet + volume + DMAs). Signals-only:
+NO cost basis / entry price / P&L is stored or shown.
 
-Sections:
-  - Positions (stop watch): stop-hit + 50/200-DMA trend-break flags
-  - Momentum (VCP): breakout (close > pivot on >=1.5x vol) / approaching pivot
-  - CANSLIM leaders: new 52w-high break (>= trigger on volume) / approaching
+BUY signals (watch items, no stop set): breakout (close > pivot on >=1.5x vol) / approaching.
+SELL signals (holdings, or vcp/canslim items with a numeric `stop`), all PRICE-based:
+  - close <= stop            -> STOP HIT (sell)
+  - close < 50-DMA           -> TREND EXIT (reduce/exit)
+Soft warning (not a sell): down day (<= -1%) on > 1.5x avg volume -> DISTRIBUTION.
 """
 import json, os, html, datetime as dt, zoneinfo
 import warnings; warnings.filterwarnings("ignore")
@@ -17,6 +18,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.join(HERE, "docs")
 VOL_BREAKOUT = 1.5
 APPROACH_PCT = 2.0
+DIST_CHG = -1.0      # a down day of at least this % ...
+DIST_VOL = 1.5       # ... on at least this x avg volume => distribution warning
 IST = zoneinfo.ZoneInfo("Asia/Kolkata")
 
 
@@ -52,148 +55,205 @@ def metrics(sub):
     }
 
 
-def build(wl, data):
-    alerts, pos, mom, cans = [], [], [], []
+def distribution(m):
+    volx = m["vol"] / m["avgvol"] if m["avgvol"] else 0
+    return m["chg"] <= DIST_CHG and volx >= DIST_VOL, volx
 
-    for h in wl.get("positions_stopwatch", []):
+
+def held_signals(sym, m, stop, note=""):
+    """Return (row_dict, alerts) for a position we hold -> sell/exit rules."""
+    alerts = []
+    dist, volx = distribution(m)
+    tag = f" · {note}" if note else ""
+    if stop and m["last"] <= stop:
+        state = f"STOP HIT — close ₹{m['last']:.1f} ≤ stop ₹{stop:.0f}"
+        kind = "sell"
+        alerts.append(("sell", f"SELL — {sym} STOP HIT ₹{m['last']:.1f} ≤ ₹{stop:.0f}: exit / review"))
+    elif m["last"] < m["dma50"]:
+        below200 = " & 200-DMA" if m["dma200"] and m["last"] < m["dma200"] else ""
+        state = f"TREND EXIT — closed below 50-DMA ₹{m['dma50']:.1f}{below200}"
+        kind = "sell"
+        alerts.append(("sell", f"SELL — {sym} closed below 50-DMA (₹{m['dma50']:.1f}){below200}: reduce / exit"))
+    else:
+        state = f"holding · above 50-DMA ₹{m['dma50']:.1f}"
+        if stop:
+            state += f" · stop ₹{stop:.0f}"
+        kind = "ok"
+    if dist:
+        state += "  ⚠ distribution"
+        alerts.append(("warn", f"⚠ {sym} distribution — {m['chg']:+.1f}% on {volx:.1f}× vol: watch for a top"))
+    return {"sym": sym + tag, "px": m["last"], "chg": m["chg"], "state": state, "kind": kind}, alerts
+
+
+def buy_signals(sym, m, level, label, theme=""):
+    """Return (row_dict, alerts) for a watch item -> buy rules. label = 'pivot'|'trigger'."""
+    alerts = []
+    name = f"{sym} · {theme}" if theme else sym
+    dist = (m["last"] / level - 1) * 100
+    volx = m["vol"] / m["avgvol"] if m["avgvol"] else 0
+    sstop = round(level * 0.92)   # suggested initial stop ~8% below the breakout level
+    if m["last"] > level and volx >= VOL_BREAKOUT:
+        word = "BREAKOUT" if label == "pivot" else "NEW HIGH"
+        state = f"{word} · {volx:.1f}× vol · if bought, stop ≈ ₹{sstop}"
+        kind = "go"
+        alerts.append(("go", f"BUY — {sym} {word} ₹{m['last']:.1f} &gt; {label} ₹{level:.1f} on {volx:.1f}× vol · initial stop ≈ ₹{sstop}"))
+    elif m["last"] > level:
+        state = f"above {label} on weak vol ({volx:.1f}×) — wait for volume"
+        kind = "warn"
+        alerts.append(("warn", f"{sym} above {label} on weak vol ({volx:.1f}×): unconfirmed, wait"))
+    elif abs(dist) <= APPROACH_PCT:
+        state = f"approaching · {dist:+.1f}% from {label} ₹{level:.1f}"
+        kind = "near"
+        alerts.append(("near", f"APPROACHING — {sym} ₹{m['last']:.1f}, {dist:+.1f}% from {label} ₹{level:.1f}"))
+    else:
+        state = f"{dist:+.1f}% from {label} ₹{level:.1f}"
+        kind = "ok"
+    return {"sym": name, "px": m["last"], "chg": m["chg"], "state": state, "kind": kind}, alerts
+
+
+def build(wl, data):
+    alerts, hold_rows, mom_rows, cans_rows = [], [], [], []
+
+    def norow(sym):
+        return {"sym": sym, "px": None, "chg": None, "state": "no data", "kind": "muted"}
+
+    for h in wl.get("holdings", []):
         m = data.get(h["ticker"])
         if m is None:
-            pos.append({"sym": h["symbol"], "cells": ["—", "no data", ""], "kind": "muted"}); continue
-        m = metrics(m); stop = h.get("stop"); flags = []; kind = "ok"
-        if stop and m["last"] <= stop:
-            alerts.append(("stop", f"STOP HIT — {h['symbol']} ₹{m['last']:.1f} ≤ stop ₹{stop:.0f}: exit / review"))
-            flags.append("STOP HIT"); kind = "stop"
-        elif m["last"] < m["dma50"]:
-            flags.append("below 50-DMA")
-            if m["dma200"] and m["last"] < m["dma200"]:
-                flags.append("below 200-DMA")
-            kind = "warn"
-        pos.append({"sym": h["symbol"],
-                    "cells": [f"₹{m['last']:.1f}", f"{m['chg']:+.1f}%",
-                              (f"stop ₹{stop:.0f}" if stop else "—") + ("  ·  " + ", ".join(flags) if flags else "")],
-                    "kind": kind})
+            hold_rows.append(norow(h["symbol"])); continue
+        row, al = held_signals(h["symbol"], metrics(m), h.get("stop"), h.get("note", ""))
+        hold_rows.append(row); alerts += al
 
     for c in wl.get("momentum_vcp", []):
         m = data.get(c["ticker"])
         if m is None:
-            mom.append({"sym": c["symbol"], "cells": ["—", "—", "no data"], "kind": "muted"}); continue
-        m = metrics(m); piv = c["pivot"]; dist = (m["last"] / piv - 1) * 100
-        volx = m["vol"] / m["avgvol"] if m["avgvol"] else 0; kind = "ok"; state = f"{dist:+.1f}% from pivot"
-        if m["last"] > piv and volx >= VOL_BREAKOUT:
-            alerts.append(("go", f"BREAKOUT — {c['symbol']} ₹{m['last']:.1f} &gt; pivot ₹{piv:.1f} on {volx:.1f}× vol: buy trigger"))
-            state = f"BREAKOUT · {volx:.1f}× vol"; kind = "go"
-        elif m["last"] > piv:
-            alerts.append(("warn", f"above pivot on weak vol ({volx:.1f}×) — {c['symbol']} ₹{m['last']:.1f}: wait for volume"))
-            state = f"above pivot · {volx:.1f}× vol (unconfirmed)"; kind = "warn"
-        elif abs(dist) <= APPROACH_PCT:
-            alerts.append(("near", f"APPROACHING — {c['symbol']} ₹{m['last']:.1f}, {dist:+.1f}% from pivot ₹{piv:.1f}"))
-            kind = "near"
-        mom.append({"sym": c["symbol"], "cells": [f"₹{m['last']:.1f}", f"pivot ₹{piv:.1f}", state], "kind": kind})
+            mom_rows.append(norow(c["symbol"])); continue
+        mm = metrics(m)
+        if c.get("stop"):   # entered -> manage the exit
+            row, al = held_signals(c["symbol"], mm, c.get("stop"))
+        else:               # still on watch -> buy rules
+            row, al = buy_signals(c["symbol"], mm, c["pivot"], "pivot")
+        mom_rows.append(row); alerts += al
 
     for c in wl.get("canslim_leaders", []):
         m = data.get(c["ticker"])
         if m is None:
-            cans.append({"sym": c["symbol"], "cells": ["—", "—", "no data"], "kind": "muted"}); continue
-        m = metrics(m); trig = c["trigger"]; dist = (m["last"] / trig - 1) * 100
-        volx = m["vol"] / m["avgvol"] if m["avgvol"] else 0; pcthi = m["last"] / m["hi52"] * 100
-        kind = "ok"; state = f"{dist:+.1f}% from trigger · {pcthi:.0f}% of 52wH"
-        if m["last"] >= trig and volx >= VOL_BREAKOUT:
-            alerts.append(("go", f"NEW HIGH — {c['symbol']} ({c['theme']}) ₹{m['last']:.1f} &gt; ₹{trig:.1f} on {volx:.1f}× vol: buy trigger"))
-            state = f"NEW 52w HIGH · {volx:.1f}× vol"; kind = "go"
-        elif dist >= -APPROACH_PCT:
-            alerts.append(("near", f"APPROACHING HIGH — {c['symbol']} ({c['theme']}) ₹{m['last']:.1f}, {dist:+.1f}% from ₹{trig:.1f}"))
-            kind = "near"
-        cans.append({"sym": f"{c['symbol']} · {c['theme']}",
-                     "cells": [f"₹{m['last']:.1f}", f"trigger ₹{trig:.1f}", state], "kind": kind})
+            cans_rows.append(norow(c["symbol"])); continue
+        mm = metrics(m)
+        if c.get("stop"):
+            row, al = held_signals(c["symbol"] + " · " + c.get("theme", ""), mm, c.get("stop"))
+        else:
+            row, al = buy_signals(c["symbol"], mm, c["trigger"], "trigger", c.get("theme", ""))
+        cans_rows.append(row); alerts += al
 
-    return alerts, pos, mom, cans
+    return alerts, hold_rows, mom_rows, cans_rows
 
 
 CSS = """
-:root{--bg:#f7f8fa;--card:#fff;--tx:#1c2024;--mut:#6b7280;--bd:#e5e7eb;
---go:#0a7d33;--gobg:#e7f6ec;--stop:#c0243c;--stopbg:#fdeaed;--warn:#a9600a;--warnbg:#fdf3e3;--near:#1f5fb8;--nearbg:#e9f1fc;}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);
-font:15px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;-webkit-text-size-adjust:100%}
-.wrap{max-width:760px;margin:0 auto;padding:18px 14px 60px}
-h1{font-size:19px;margin:0 0 2px}.sub{color:var(--mut);font-size:13px;margin:0 0 18px}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 14px 6px;margin:0 0 16px}
-h2{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);margin:2px 0 10px}
-.alert{display:flex;gap:9px;align-items:flex-start;padding:10px 12px;border-radius:10px;margin:0 0 8px;font-size:14px}
-.alert .dot{width:8px;height:8px;border-radius:50%;margin-top:6px;flex:0 0 auto}
-.go{background:var(--gobg)}.go .dot{background:var(--go)}
-.stop{background:var(--stopbg)}.stop .dot{background:var(--stop)}
-.warn{background:var(--warnbg)}.warn .dot{background:var(--warn)}
-.near{background:var(--nearbg)}.near .dot{background:var(--near)}
-.none{color:var(--mut);font-size:14px;padding:6px 2px}
-table{width:100%;border-collapse:collapse;font-size:14px}
-td{padding:9px 6px;border-top:1px solid var(--bd);vertical-align:top}
-tr:first-child td{border-top:none}
-.sym{font-weight:600;white-space:nowrap}.px{white-space:nowrap;color:var(--mut)}
-.st-go{color:var(--go);font-weight:600}.st-stop{color:var(--stop);font-weight:600}
-.st-warn{color:var(--warn)}.st-near{color:var(--near);font-weight:600}.st-muted{color:var(--mut)}
-.foot{color:var(--mut);font-size:12px;margin-top:22px;line-height:1.6}
-@media(prefers-color-scheme:dark){:root{--bg:#0f1216;--card:#181c22;--tx:#e6e8eb;--mut:#9aa4b2;--bd:#2a2f37;
---gobg:#0e2a18;--stopbg:#2e1116;--warnbg:#2a1f0c;--nearbg:#101f33;}}
+:root{--bg:#f6f7f9;--card:#fff;--tx:#161a1d;--mut:#6b7280;--bd:#e6e8ec;
+--go:#0a7d33;--gobg:#e7f6ec;--sell:#c0243c;--sellbg:#fdeaed;--warn:#9a5b00;--warnbg:#fdf2e2;--near:#1f5fb8;--nearbg:#e9f1fc;}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1114;--card:#171b20;--tx:#e7e9ec;--mut:#98a2b0;--bd:#282e36;
+--gobg:#0e2a18;--sellbg:#2e1116;--warnbg:#2a1f0c;--nearbg:#101f33;}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.wrap{max-width:640px;margin:0 auto;padding:16px 12px 64px}
+h1{font-size:20px;margin:0 0 2px}.sub{color:var(--mut);font-size:13px;margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;overflow:hidden;margin:0 0 14px}
+h2{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);margin:0;padding:13px 14px 9px}
+/* alerts */
+.alerts{padding:0 12px 6px}
+.alert{display:flex;gap:10px;align-items:flex-start;padding:12px 12px;border-radius:12px;margin:0 0 8px;font-size:14.5px;line-height:1.45}
+.alert .dot{width:9px;height:9px;border-radius:50%;margin-top:6px;flex:0 0 auto}
+.a-go{background:var(--gobg)}.a-go .dot{background:var(--go)}
+.a-sell{background:var(--sellbg)}.a-sell .dot{background:var(--sell)}
+.a-warn{background:var(--warnbg)}.a-warn .dot{background:var(--warn)}
+.a-near{background:var(--nearbg)}.a-near .dot{background:var(--near)}
+.none{color:var(--mut);font-size:14.5px;padding:4px 14px 14px}
+/* rows: stacked, mobile-first, left accent */
+.row{padding:12px 14px;border-top:1px solid var(--bd);border-left:3px solid var(--bd)}
+.row:first-of-type{border-top:none}
+.r1{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.sym{font-weight:650;font-size:15.5px}
+.pr{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--mut);font-size:14px}
+.chg{font-size:12.5px;margin-left:6px}.up{color:var(--go)}.down{color:var(--sell)}
+.sig{font-size:13.5px;color:var(--mut);margin-top:3px;line-height:1.45}
+.k-go{border-left-color:var(--go)}.k-go .sig{color:var(--go);font-weight:600}
+.k-sell{border-left-color:var(--sell)}.k-sell .sig{color:var(--sell);font-weight:600}
+.k-warn{border-left-color:var(--warn)}.k-warn .sig{color:var(--warn)}
+.k-near{border-left-color:var(--near)}.k-near .sig{color:var(--near);font-weight:600}
+.k-muted .sig{opacity:.7}
+.foot{color:var(--mut);font-size:12px;margin-top:20px;line-height:1.6}
+.foot b{color:var(--tx);font-weight:600}
 """
 
 
-def render(alerts, pos, mom, cans):
+def render(alerts, hold, mom, cans):
     now = dt.datetime.now(IST)
-    kmap = {"go": "st-go", "stop": "st-stop", "warn": "st-warn", "near": "st-near", "ok": "", "muted": "st-muted"}
+    akmap = {"go": "a-go", "sell": "a-sell", "warn": "a-warn", "near": "a-near"}
 
-    def table(rows):
-        out = ["<table>"]
+    def rows_html(rows):
+        out = []
         for r in rows:
-            c = r["cells"]; sc = kmap.get(r["kind"], "")
-            out.append(f'<tr><td class="sym">{html.escape(r["sym"])}</td>'
-                       f'<td class="px">{c[0]}</td><td class="px">{c[1]}</td>'
-                       f'<td class="{sc}">{c[2]}</td></tr>')
-        out.append("</table>")
+            px = "—" if r["px"] is None else f"₹{r['px']:.1f}"
+            chg = ""
+            if r["chg"] is not None:
+                cls = "up" if r["chg"] >= 0 else "down"
+                chg = f'<span class="chg {cls}">{r["chg"]:+.1f}%</span>'
+            out.append(
+                f'<div class="row k-{r["kind"]}"><div class="r1">'
+                f'<span class="sym">{html.escape(r["sym"])}</span>'
+                f'<span class="pr">{px}{chg}</span></div>'
+                f'<div class="sig">{r["state"]}</div></div>')
         return "".join(out)
 
     if alerts:
-        order = {"stop": 0, "go": 1, "warn": 2, "near": 3}
+        order = {"sell": 0, "go": 1, "warn": 2, "near": 3}
         alerts = sorted(alerts, key=lambda a: order.get(a[0], 9))
-        albox = "".join(f'<div class="alert {k}"><span class="dot"></span><div>{msg}</div></div>' for k, msg in alerts)
+        albox = "".join(
+            f'<div class="alert {akmap.get(k,"a-near")}"><span class="dot"></span><div>{msg}</div></div>'
+            for k, msg in alerts)
+        albox = f'<div class="alerts">{albox}</div>'
     else:
         albox = '<div class="none">No actionable triggers today.</div>'
 
     return f"""<!doctype html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="refresh" content="1800">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark"><meta http-equiv="refresh" content="1800">
 <title>EOD Signals — {now:%d %b %Y}</title><style>{CSS}</style></head><body><div class="wrap">
 <h1>India-Trading — EOD Signals</h1>
-<p class="sub">Updated {now:%a %d %b %Y, %H:%M IST} · auto-refreshes · signals only, verify volume &amp; price on your broker before acting</p>
+<p class="sub">Updated {now:%a %d %b %Y, %H:%M IST} · auto-refreshes · signals only — verify price &amp; volume on your broker before acting</p>
 <div class="card"><h2>Actionable</h2>{albox}</div>
-<div class="card"><h2>Positions · stop watch</h2>{table(pos)}</div>
-<div class="card"><h2>Momentum · VCP pivots</h2>{table(mom)}</div>
-<div class="card"><h2>CANSLIM leaders · 52w-high breaks</h2>{table(cans)}</div>
-<p class="foot">Breakout = close above pivot on ≥1.5× average volume. Pivot/trigger/stop levels are static (from the last screen) — refresh periodically.<br>
+<div class="card"><h2>Holdings · sell watch</h2>{rows_html(hold)}</div>
+<div class="card"><h2>Momentum · VCP</h2>{rows_html(mom)}</div>
+<div class="card"><h2>CANSLIM leaders</h2>{rows_html(cans)}</div>
+<p class="foot">
+<b>Buy</b> = close above pivot/trigger on ≥1.5× avg volume (breakout shows a suggested initial stop ≈8% below).<br>
+<b>Sell (price-based):</b> close ≤ your stop, or close below the 50-DMA (trend exit — trails winners up). ⚠ <b>distribution</b> = a down day on &gt;1.5× volume — a warning, not a sell.<br>
+Add a numeric <code>stop</code> to a VCP/CANSLIM item in watchlist.json to switch it from buy-watch to sell mode.<br>
 Not investment advice. Educational signals from public price data; patterns fail — always use a stop.</p>
 </div></body></html>"""
 
 
 def main():
     wl = load()
-    tickers = [x["ticker"] for g in ("positions_stopwatch", "momentum_vcp", "canslim_leaders")
+    tickers = [x["ticker"] for g in ("holdings", "momentum_vcp", "canslim_leaders")
                for x in wl.get(g, [])]
     data = fetch(tickers)
-    alerts, pos, mom, cans = build(wl, data)
+    alerts, hold, mom, cans = build(wl, data)
     os.makedirs(DOCS, exist_ok=True)
     with open(os.path.join(DOCS, "index.html"), "w") as f:
-        f.write(render(alerts, pos, mom, cans))
+        f.write(render(alerts, hold, mom, cans))
 
-    hist_path = os.path.join(DOCS, "history.json")
+    hp = os.path.join(DOCS, "history.json")
     hist = []
-    if os.path.exists(hist_path):
-        try: hist = json.load(open(hist_path))
+    if os.path.exists(hp):
+        try: hist = json.load(open(hp))
         except Exception: hist = []
     hist = [h for h in hist if h.get("date") != dt.date.today().isoformat()]
-    hist.append({"date": dt.date.today().isoformat(),
-                 "fetched": len(data), "of": len(tickers),
-                 "alerts": [m for _, m in alerts]})
-    json.dump(hist[-120:], open(hist_path, "w"), indent=1)
-    print(f"OK: fetched {len(data)}/{len(tickers)} tickers, {len(alerts)} alerts -> docs/index.html")
+    hist.append({"date": dt.date.today().isoformat(), "fetched": len(data),
+                 "of": len(tickers), "alerts": [m for _, m in alerts]})
+    json.dump(hist[-120:], open(hp, "w"), indent=1)
+    print(f"OK: {len(data)}/{len(tickers)} tickers, {len(alerts)} alerts -> docs/index.html")
 
 
 if __name__ == "__main__":
