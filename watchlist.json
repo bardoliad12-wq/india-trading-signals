@@ -1,0 +1,25 @@
+{
+  "_comment": "Signals-only fetch list for the public EOD dashboard. NO cost basis / quantities / P&L here by design. Edit + commit to update the daily fetch list.",
+  "positions_stopwatch": [
+    {"symbol": "ATLANTAELE", "ticker": "ATLANTAELE.NS", "stop": 1500, "note": "surveillance T2T/ASM"},
+    {"symbol": "ZENTEC", "ticker": "ZENTEC.NS", "stop": null, "note": "defense winner - trail"},
+    {"symbol": "DATAPATTNS", "ticker": "DATAPATTNS.NS", "stop": null, "note": "defense winner - trail"},
+    {"symbol": "LODHA", "ticker": "LODHA.NS", "stop": null, "note": "realty winner - trail"},
+    {"symbol": "KSOLVES", "ticker": "KSOLVES.NS", "stop": null, "note": "exit candidate"},
+    {"symbol": "JSLL", "ticker": "JSLL.NS", "stop": null, "note": "exit candidate"}
+  ],
+  "momentum_vcp": [
+    {"symbol": "NAVINFLUOR", "ticker": "NAVINFLUOR.NS", "pivot": 7810.0},
+    {"symbol": "NLCINDIA", "ticker": "NLCINDIA.NS", "pivot": 329.10},
+    {"symbol": "BAJAJ-AUTO", "ticker": "BAJAJ-AUTO.NS", "pivot": 10298.0},
+    {"symbol": "RADICO", "ticker": "RADICO.NS", "pivot": 4161.80},
+    {"symbol": "STAR", "ticker": "STAR.NS", "pivot": 1149.80}
+  ],
+  "canslim_leaders": [
+    {"symbol": "KRISHNADEF", "ticker": "KRISHNADEF.NS", "trigger": 1398.60, "theme": "defense"},
+    {"symbol": "RRKABEL", "ticker": "RRKABEL.NS", "trigger": 2549.0, "theme": "electrification"},
+    {"symbol": "SKYGOLD", "ticker": "SKYGOLD.NS", "trigger": 638.0, "theme": "gold jewellery"},
+    {"symbol": "THANGAMAYL", "ticker": "THANGAMAYL.NS", "trigger": 7165.0, "theme": "gold jewellery"},
+    {"symbol": "NAM-INDIA", "ticker": "NAM-INDIA.NS", "trigger": 1233.50, "theme": "asset manager"}
+  ]
+}
