@@ -22,5 +22,16 @@
    "BUY \u2014 BAJAJ-AUTO BREAKOUT \u20b910381.0 &gt; pivot \u20b910298.0 on 2.7\u00d7 vol \u00b7 initial stop \u2248 \u20b99474",
    "APPROACHING \u2014 NAM-INDIA \u20b91215.3, -1.5% from trigger \u20b91233.5"
   ]
+ },
+ {
+  "date": "2026-07-14",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "SELL \u2014 ATLANTAELE closed below 50-DMA (\u20b91802.4): reduce / exit",
+   "SELL \u2014 DATAPATTNS closed below 50-DMA (\u20b94284.7): reduce / exit",
+   "SELL \u2014 JSLL closed below 50-DMA (\u20b9620.2) & 200-DMA: reduce / exit",
+   "APPROACHING \u2014 BAJAJ-AUTO \u20b910166.0, -1.3% from pivot \u20b910298.0"
+  ]
  }
 ]
