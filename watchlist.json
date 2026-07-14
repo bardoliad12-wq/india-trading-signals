@@ -1,12 +1,13 @@
 {
-  "_howto": "Signals-only (no P&L). BUY watch: momentum_vcp/canslim_leaders items show buy triggers until you enter. To flip one to SELL mode after you buy the breakout, add a numeric \"stop\" to that item. Sell signals are all price-based: close <= stop, OR close < 50-DMA (trend exit). A down day on >1.5x volume shows a soft 'distribution' warning (not a sell). Levels are static snapshots from the last screen; refresh periodically.",
+  "_howto": "Signals-only (no P&L). BUY watch: momentum_vcp/canslim_leaders items show buy triggers until you enter. To flip one to SELL mode after you buy the breakout, add a numeric \"stop\" (your stop loss) to that item. Sell signals are all price-based: close <= stop loss, OR close < 50-DMA (trend exit). A down day on >1.5x volume shows a soft 'distribution' warning (not a sell). Levels are static snapshots; use the Refresh button (re-runs the yfinance fetch) or edit levels here.",
   "holdings": [
     {"symbol": "ATLANTAELE", "ticker": "ATLANTAELE.NS", "stop": 1500, "note": "surveillance T2T/ASM"},
     {"symbol": "ZENTEC", "ticker": "ZENTEC.NS", "stop": null, "note": "defense winner"},
     {"symbol": "DATAPATTNS", "ticker": "DATAPATTNS.NS", "stop": null, "note": "defense winner"},
     {"symbol": "LODHA", "ticker": "LODHA.NS", "stop": null, "note": "realty winner"},
     {"symbol": "KSOLVES", "ticker": "KSOLVES.NS", "stop": null, "note": "exit candidate"},
-    {"symbol": "JSLL", "ticker": "JSLL.NS", "stop": null, "note": "exit candidate"}
+    {"symbol": "JSLL", "ticker": "JSLL.NS", "stop": null, "note": "exit candidate"},
+    {"symbol": "NAM-INDIA", "ticker": "NAM-INDIA.NS", "stop": 1114, "note": "AMC — bought below 1233.5 trigger; stop loss = 8% rule, edit to taste"}
   ],
   "momentum_vcp": [
     {"symbol": "NAVINFLUOR", "ticker": "NAVINFLUOR.NS", "pivot": 7810.0, "stop": null},
@@ -19,7 +20,6 @@
     {"symbol": "KRISHNADEF", "ticker": "KRISHNADEF.NS", "trigger": 1398.60, "theme": "defense", "stop": null},
     {"symbol": "RRKABEL", "ticker": "RRKABEL.NS", "trigger": 2549.0, "theme": "electrification", "stop": null},
     {"symbol": "SKYGOLD", "ticker": "SKYGOLD.NS", "trigger": 638.0, "theme": "gold jewellery", "stop": null},
-    {"symbol": "THANGAMAYL", "ticker": "THANGAMAYL.NS", "trigger": 7165.0, "theme": "gold jewellery", "stop": null},
-    {"symbol": "NAM-INDIA", "ticker": "NAM-INDIA.NS", "trigger": 1233.50, "theme": "asset manager", "stop": null}
+    {"symbol": "THANGAMAYL", "ticker": "THANGAMAYL.NS", "trigger": 7165.0, "theme": "gold jewellery", "stop": null}
   ]
 }

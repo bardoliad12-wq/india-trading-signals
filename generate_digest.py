@@ -66,9 +66,9 @@ def held_signals(sym, m, stop, note=""):
     dist, volx = distribution(m)
     tag = f" · {note}" if note else ""
     if stop and m["last"] <= stop:
-        state = f"STOP HIT — close ₹{m['last']:.1f} ≤ stop ₹{stop:.0f}"
+        state = f"STOP-LOSS HIT — close ₹{m['last']:.1f} ≤ stop loss ₹{stop:.0f}"
         kind = "sell"
-        alerts.append(("sell", f"SELL — {sym} STOP HIT ₹{m['last']:.1f} ≤ ₹{stop:.0f}: exit / review"))
+        alerts.append(("sell", f"SELL — {sym} STOP-LOSS HIT ₹{m['last']:.1f} ≤ ₹{stop:.0f}: exit / review"))
     elif m["last"] < m["dma50"]:
         below200 = " & 200-DMA" if m["dma200"] and m["last"] < m["dma200"] else ""
         state = f"TREND EXIT — closed below 50-DMA ₹{m['dma50']:.1f}{below200}"
@@ -77,7 +77,7 @@ def held_signals(sym, m, stop, note=""):
     else:
         state = f"holding · above 50-DMA ₹{m['dma50']:.1f}"
         if stop:
-            state += f" · stop ₹{stop:.0f}"
+            state += f" · stop loss ₹{stop:.0f}"
         kind = "ok"
     if dist:
         state += "  ⚠ distribution"
@@ -91,12 +91,12 @@ def buy_signals(sym, m, level, label, theme=""):
     name = f"{sym} · {theme}" if theme else sym
     dist = (m["last"] / level - 1) * 100
     volx = m["vol"] / m["avgvol"] if m["avgvol"] else 0
-    sstop = round(level * 0.92)   # suggested initial stop ~8% below the breakout level
+    sstop = round(level * 0.92)   # suggested initial stop loss ~8% below the breakout level
     if m["last"] > level and volx >= VOL_BREAKOUT:
         word = "BREAKOUT" if label == "pivot" else "NEW HIGH"
-        state = f"{word} · {volx:.1f}× vol · if bought, stop ≈ ₹{sstop}"
+        state = f"{word} · {volx:.1f}× vol · if bought, stop loss ≈ ₹{sstop}"
         kind = "go"
-        alerts.append(("go", f"BUY — {sym} {word} ₹{m['last']:.1f} &gt; {label} ₹{level:.1f} on {volx:.1f}× vol · initial stop ≈ ₹{sstop}"))
+        alerts.append(("go", f"BUY — {sym} {word} ₹{m['last']:.1f} &gt; {label} ₹{level:.1f} on {volx:.1f}× vol · initial stop loss ≈ ₹{sstop}"))
     elif m["last"] > level:
         state = f"above {label} on weak vol ({volx:.1f}×) — wait for volume"
         kind = "warn"
@@ -176,6 +176,10 @@ h2{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut)
 .sym{font-weight:650;font-size:15.5px}
 .pr{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--mut);font-size:14px}
 .chg{font-size:12.5px;margin-left:6px}.up{color:var(--go)}.down{color:var(--sell)}
+.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.refresh{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;text-decoration:none;padding:8px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);white-space:nowrap}
+.refresh:hover{border-color:var(--near);color:var(--near)}
+.refresh:active{transform:translateY(1px)}
 .sig{font-size:13.5px;color:var(--mut);margin-top:3px;line-height:1.45}
 .k-go{border-left-color:var(--go)}.k-go .sig{color:var(--go);font-weight:600}
 .k-sell{border-left-color:var(--sell)}.k-sell .sig{color:var(--sell);font-weight:600}
@@ -204,6 +208,10 @@ h2{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut)
 
 
 GH_EDIT_URL = "https://github.com/bardoliad12-wq/india-trading-signals/edit/main/watchlist.json"
+ACTIONS_URL = "https://github.com/bardoliad12-wq/india-trading-signals/actions/workflows/digest.yml"
+
+# friendlier labels for the watchlist editor fields
+FIELD_LABELS = {"stop": "stop loss"}
 
 EDITOR_JS = """
 function wlBuild(){
@@ -245,7 +253,7 @@ def editor(wl):
                 t = "num" if is_num else "str"
                 val = "" if v is None else html.escape(str(v), quote=True)
                 out.append(
-                    f'<label class="efield"><span>{html.escape(f)}</span>'
+                    f'<label class="efield"><span>{html.escape(FIELD_LABELS.get(f, f))}</span>'
                     f'<input data-g="{g}" data-i="{i}" data-f="{html.escape(f, quote=True)}" '
                     f'data-t="{t}" inputmode="{"decimal" if is_num else "text"}" value="{val}"></label>')
             out.append('</div>')
@@ -257,7 +265,7 @@ def accordion(wl):
     body = (
         '<p class="enote">Edit levels/stops below, then <b>Copy</b> or <b>Download</b> the updated '
         '<code>watchlist.json</code> and commit it on GitHub — a static page can\'t save changes itself. '
-        'Add a <code>stop</code> to a VCP/CANSLIM row to flip it into sell mode.</p>'
+        'Add a <code>stop</code> (your stop loss) to a VCP/CANSLIM row to flip it into sell mode.</p>'
         + editor(wl)
         + '<div class="ebtns"><button type="button" class="primary" onclick="wlCopy()">Copy JSON</button>'
           '<button type="button" onclick="wlDownload()">Download</button>'
@@ -305,18 +313,23 @@ def render(alerts, hold, mom, cans, wl):
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark"><meta http-equiv="refresh" content="1800">
 <title>EOD Signals — {now:%d %b %Y}</title><style>{CSS}</style></head><body><div class="wrap">
-<h1>India-Trading — EOD Signals</h1>
-<p class="sub">Updated {now:%a %d %b %Y, %H:%M IST} · auto-refreshes · signals only — verify price &amp; volume on your broker before acting</p>
+<div class="hd">
+<div><h1>India-Trading — EOD Signals</h1>
+<p class="sub">Updated {now:%a %d %b %Y, %H:%M IST} · rebuilds automatically after each NSE close</p></div>
+<a class="refresh" href="{ACTIONS_URL}" target="_blank" rel="noopener"
+   title="Opens GitHub Actions — click 'Run workflow' to pull fresh price + volume and redeploy (~1 min)">🔄 Refresh data</a>
+</div>
+<p class="sub" style="margin-top:4px">Signals only — always confirm price &amp; volume on your broker before acting.</p>
 <div class="card"><h2>Actionable</h2>{albox}</div>
 <div class="card"><h2>Holdings · sell watch</h2>{rows_html(hold)}</div>
 <div class="card"><h2>Momentum · VCP</h2>{rows_html(mom)}</div>
 <div class="card"><h2>CANSLIM leaders</h2>{rows_html(cans)}</div>
 {acc}
 <p class="foot">
-<b>Buy</b> = close above pivot/trigger on ≥1.5× avg volume (breakout shows a suggested initial stop ≈8% below).<br>
-<b>Sell (price-based):</b> close ≤ your stop, or close below the 50-DMA (trend exit — trails winners up). ⚠ <b>distribution</b> = a down day on &gt;1.5× volume — a warning, not a sell.<br>
-Add a numeric <code>stop</code> to a VCP/CANSLIM item in watchlist.json to switch it from buy-watch to sell mode.<br>
-Not investment advice. Educational signals from public price data; patterns fail — always use a stop.</p>
+<b>Buy</b> = close above pivot/trigger on ≥1.5× avg volume (breakout shows a suggested initial <b>stop loss</b> ≈8% below).<br>
+<b>Sell (price-based):</b> close ≤ your <b>stop loss</b>, or close below the 50-DMA (trend exit — trails winners up). ⚠ <b>distribution</b> = a down day on &gt;1.5× volume — a warning, not a sell.<br>
+Add a numeric <code>stop</code> (your stop loss) to any VCP/CANSLIM item in watchlist.json to switch it from buy-watch to sell mode.<br>
+Not investment advice. Educational signals from public price data; patterns fail — always use a stop loss.</p>
 </div>{scripts}</body></html>"""
 
 
