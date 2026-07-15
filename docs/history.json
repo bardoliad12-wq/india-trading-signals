@@ -33,5 +33,18 @@
    "SELL \u2014 JSLL closed below 50-DMA (\u20b9620.2) & 200-DMA: reduce / exit",
    "APPROACHING \u2014 BAJAJ-AUTO \u20b910166.0, -1.3% from pivot \u20b910298.0"
   ]
+ },
+ {
+  "date": "2026-07-15",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "SELL \u2014 ATLANTAELE closed below 50-DMA (\u20b91806.4): reduce / exit",
+   "SELL \u2014 DATAPATTNS closed below 50-DMA (\u20b94285.1): reduce / exit",
+   "SELL \u2014 JSLL closed below 50-DMA (\u20b9616.8) & 200-DMA: reduce / exit",
+   "BAJAJ-AUTO above pivot on weak vol (1.2\u00d7): unconfirmed, wait",
+   "APPROACHING \u2014 RADICO \u20b94090.0, -1.7% from pivot \u20b94161.8",
+   "APPROACHING \u2014 SKYGOLD \u20b9629.8, -1.3% from trigger \u20b9638.0"
+  ]
  }
 ]
