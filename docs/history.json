@@ -86,5 +86,20 @@
    "APPROACHING \u2014 RADICO \u20b94132.4, -0.7% from pivot \u20b94161.8",
    "SKYGOLD above trigger on weak vol (1.1\u00d7): unconfirmed, wait"
   ]
+ },
+ {
+  "date": "2026-07-21",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "SELL \u2014 ATLANTAELE closed below 50-DMA (\u20b91807.0): reduce / exit",
+   "\u26a0 ATLANTAELE distribution \u2014 -4.8% on 6.2\u00d7 vol: watch for a top",
+   "SELL \u2014 DATAPATTNS closed below 50-DMA (\u20b94283.1): reduce / exit",
+   "SELL \u2014 JSLL closed below 50-DMA (\u20b9602.7) & 200-DMA: reduce / exit",
+   "NAVINFLUOR above pivot on weak vol (0.9\u00d7): unconfirmed, wait",
+   "BUY \u2014 BAJAJ-AUTO BREAKOUT \u20b910403.5 &gt; pivot \u20b910298.0 on 2.2\u00d7 vol \u00b7 initial stop loss \u2248 \u20b99474",
+   "APPROACHING \u2014 RADICO \u20b94088.4, -1.8% from pivot \u20b94161.8",
+   "SKYGOLD above trigger on weak vol (1.1\u00d7): unconfirmed, wait"
+  ]
  }
 ]
