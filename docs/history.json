@@ -145,5 +145,23 @@
    "APPROACHING \u2014 RADICO \u20b94091.3, -1.7% from pivot \u20b94161.8",
    "SKYGOLD above trigger on weak vol (0.4\u00d7): unconfirmed, wait"
   ]
+ },
+ {
+  "date": "2026-07-27",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "SELL \u2014 ATLANTAELE closed below 50-DMA (\u20b91793.9): reduce / exit",
+   "SELL \u2014 ZENTEC closed below 50-DMA (\u20b91769.5): reduce / exit",
+   "\u26a0 ZENTEC distribution \u2014 -4.6% on 2.0\u00d7 vol: watch for a top",
+   "SELL \u2014 KSOLVES closed below 50-DMA (\u20b9287.0) & 200-DMA: reduce / exit",
+   "SELL \u2014 JSLL closed below 50-DMA (\u20b9594.6) & 200-DMA: reduce / exit",
+   "APPROACHING \u2014 NAVINFLUOR \u20b97711.0, -1.3% from pivot \u20b97810.0",
+   "BAJAJ-AUTO above pivot on weak vol (0.6\u00d7): unconfirmed, wait",
+   "APPROACHING \u2014 RADICO \u20b94149.5, -0.3% from pivot \u20b94161.8",
+   "APPROACHING \u2014 RRKABEL \u20b92525.3, -0.9% from trigger \u20b92549.0",
+   "SKYGOLD above trigger on weak vol (0.7\u00d7): unconfirmed, wait",
+   "THANGAMAYL above trigger on weak vol (1.3\u00d7): unconfirmed, wait"
+  ]
  }
 ]
