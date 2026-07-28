@@ -163,5 +163,21 @@
    "SKYGOLD above trigger on weak vol (0.7\u00d7): unconfirmed, wait",
    "THANGAMAYL above trigger on weak vol (1.3\u00d7): unconfirmed, wait"
   ]
+ },
+ {
+  "date": "2026-07-28",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "SELL \u2014 ATLANTAELE closed below 50-DMA (\u20b91792.9): reduce / exit",
+   "SELL \u2014 ZENTEC closed below 50-DMA (\u20b91771.0): reduce / exit",
+   "SELL \u2014 KSOLVES closed below 50-DMA (\u20b9287.0) & 200-DMA: reduce / exit",
+   "SELL \u2014 JSLL closed below 50-DMA (\u20b9592.8) & 200-DMA: reduce / exit",
+   "BAJAJ-AUTO above pivot on weak vol (0.8\u00d7): unconfirmed, wait",
+   "BUY \u2014 RADICO BREAKOUT \u20b94289.7 &gt; pivot \u20b94161.8 on 4.5\u00d7 vol \u00b7 initial stop loss \u2248 \u20b93829",
+   "BUY \u2014 RRKABEL NEW HIGH \u20b92576.9 &gt; trigger \u20b92549.0 on 5.2\u00d7 vol \u00b7 initial stop loss \u2248 \u20b92345",
+   "SKYGOLD above trigger on weak vol (0.3\u00d7): unconfirmed, wait",
+   "THANGAMAYL above trigger on weak vol (0.9\u00d7): unconfirmed, wait"
+  ]
  }
 ]
