@@ -271,5 +271,21 @@
    "BUY \u2014 RRKABEL NEW HIGH \u20b92793.0 &gt; trigger \u20b92549.0 on 1.6\u00d7 vol \u00b7 initial stop loss \u2248 \u20b92345",
    "SKYGOLD above trigger on weak vol (0.4\u00d7): unconfirmed, wait"
   ]
+ },
+ {
+  "date": "2026-08-06",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "SELL \u2014 ATLANTAELE closed below 50-DMA (\u20b91769.6): reduce / exit",
+   "SELL \u2014 ZENTEC closed below 50-DMA (\u20b91775.6): reduce / exit",
+   "SELL \u2014 DATAPATTNS closed below 50-DMA (\u20b94408.0): reduce / exit",
+   "SELL \u2014 KSOLVES closed below 50-DMA (\u20b9286.8) & 200-DMA: reduce / exit",
+   "BUY \u2014 NAVINFLUOR BREAKOUT \u20b98650.0 &gt; pivot \u20b97810.0 on 18.9\u00d7 vol \u00b7 initial stop loss \u2248 \u20b97185",
+   "BAJAJ-AUTO above pivot on weak vol (0.6\u00d7): unconfirmed, wait",
+   "RADICO above pivot on weak vol (1.1\u00d7): unconfirmed, wait",
+   "RRKABEL above trigger on weak vol (0.6\u00d7): unconfirmed, wait",
+   "SKYGOLD above trigger on weak vol (0.6\u00d7): unconfirmed, wait"
+  ]
  }
 ]
