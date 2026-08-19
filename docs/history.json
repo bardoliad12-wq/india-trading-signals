@@ -409,5 +409,20 @@
    "RRKABEL above trigger on weak vol (1.1\u00d7): unconfirmed, wait",
    "SKYGOLD above trigger on weak vol (0.5\u00d7): unconfirmed, wait"
   ]
+ },
+ {
+  "date": "2026-08-19",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "\u26a0 ATLANTAELE distribution \u2014 -3.3% on 1.6\u00d7 vol: watch for a top",
+   "SELL \u2014 KSOLVES closed below 50-DMA (\u20b9285.8) & 200-DMA: reduce / exit",
+   "SELL \u2014 JSLL closed below 50-DMA (\u20b9570.3) & 200-DMA: reduce / exit",
+   "NAVINFLUOR above pivot on weak vol (0.6\u00d7): unconfirmed, wait",
+   "BAJAJ-AUTO above pivot on weak vol (0.6\u00d7): unconfirmed, wait",
+   "RADICO above pivot on weak vol (0.6\u00d7): unconfirmed, wait",
+   "RRKABEL above trigger on weak vol (1.0\u00d7): unconfirmed, wait",
+   "SKYGOLD above trigger on weak vol (0.5\u00d7): unconfirmed, wait"
+  ]
  }
 ]
