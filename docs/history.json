@@ -524,5 +524,22 @@
    "RRKABEL above trigger on weak vol (1.3\u00d7): unconfirmed, wait",
    "SKYGOLD above trigger on weak vol (0.3\u00d7): unconfirmed, wait"
   ]
+ },
+ {
+  "date": "2026-08-31",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "SELL \u2014 ZENTEC closed below 50-DMA (\u20b91798.0): reduce / exit",
+   "SELL \u2014 KSOLVES closed below 50-DMA (\u20b9283.0) & 200-DMA: reduce / exit",
+   "SELL \u2014 JSLL closed below 50-DMA (\u20b9557.9) & 200-DMA: reduce / exit",
+   "SELL \u2014 NAM-INDIA closed below 50-DMA (\u20b91183.3): reduce / exit",
+   "\u26a0 NAM-INDIA distribution \u2014 -2.6% on 6.2\u00d7 vol: watch for a top",
+   "NAVINFLUOR above pivot on weak vol (1.0\u00d7): unconfirmed, wait",
+   "BAJAJ-AUTO above pivot on weak vol (1.0\u00d7): unconfirmed, wait",
+   "RADICO above pivot on weak vol (1.2\u00d7): unconfirmed, wait",
+   "RRKABEL above trigger on weak vol (1.1\u00d7): unconfirmed, wait",
+   "SKYGOLD above trigger on weak vol (0.6\u00d7): unconfirmed, wait"
+  ]
  }
 ]
