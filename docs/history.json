@@ -715,5 +715,24 @@
    "STAR above pivot on weak vol (1.1\u00d7): unconfirmed, wait",
    "SKYGOLD above trigger on weak vol (0.6\u00d7): unconfirmed, wait"
   ]
+ },
+ {
+  "date": "2026-09-16",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "SELL \u2014 ATLANTAELE closed below 50-DMA (\u20b91702.4): reduce / exit",
+   "SELL \u2014 ZENTEC closed below 50-DMA (\u20b91784.8): reduce / exit",
+   "SELL \u2014 DATAPATTNS closed below 50-DMA (\u20b94504.7): reduce / exit",
+   "SELL \u2014 LODHA closed below 50-DMA (\u20b91206.4): reduce / exit",
+   "SELL \u2014 KSOLVES closed below 50-DMA (\u20b9277.9) & 200-DMA: reduce / exit",
+   "SELL \u2014 JSLL closed below 50-DMA (\u20b9541.2) & 200-DMA: reduce / exit",
+   "SELL \u2014 NAM-INDIA closed below 50-DMA (\u20b91182.1): reduce / exit",
+   "NAVINFLUOR above pivot on weak vol (0.5\u00d7): unconfirmed, wait",
+   "BAJAJ-AUTO above pivot on weak vol (0.9\u00d7): unconfirmed, wait",
+   "RADICO above pivot on weak vol (0.8\u00d7): unconfirmed, wait",
+   "STAR above pivot on weak vol (1.0\u00d7): unconfirmed, wait",
+   "SKYGOLD above trigger on weak vol (0.6\u00d7): unconfirmed, wait"
+  ]
  }
 ]
