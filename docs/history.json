@@ -850,5 +850,25 @@
    "APPROACHING \u2014 RRKABEL \u20b92529.8, -0.8% from trigger \u20b92549.0",
    "SKYGOLD above trigger on weak vol (0.5\u00d7): unconfirmed, wait"
   ]
+ },
+ {
+  "date": "2026-09-25",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "SELL \u2014 ATLANTAELE closed below 50-DMA (\u20b91695.8): reduce / exit",
+   "SELL \u2014 ZENTEC closed below 50-DMA (\u20b91764.3): reduce / exit",
+   "SELL \u2014 DATAPATTNS closed below 50-DMA (\u20b94543.3): reduce / exit",
+   "SELL \u2014 LODHA closed below 50-DMA (\u20b91202.6): reduce / exit",
+   "SELL \u2014 KSOLVES closed below 50-DMA (\u20b9271.5) & 200-DMA: reduce / exit",
+   "SELL \u2014 JSLL closed below 50-DMA (\u20b9530.5) & 200-DMA: reduce / exit",
+   "SELL \u2014 NAM-INDIA closed below 50-DMA (\u20b91175.6): reduce / exit",
+   "NAVINFLUOR above pivot on weak vol (0.5\u00d7): unconfirmed, wait",
+   "BAJAJ-AUTO above pivot on weak vol (0.4\u00d7): unconfirmed, wait",
+   "RADICO above pivot on weak vol (0.7\u00d7): unconfirmed, wait",
+   "STAR above pivot on weak vol (0.4\u00d7): unconfirmed, wait",
+   "APPROACHING \u2014 RRKABEL \u20b92528.3, -0.8% from trigger \u20b92549.0",
+   "SKYGOLD above trigger on weak vol (0.3\u00d7): unconfirmed, wait"
+  ]
  }
 ]
