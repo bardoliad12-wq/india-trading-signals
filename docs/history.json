@@ -1021,5 +1021,25 @@
    "RRKABEL above trigger on weak vol (1.1\u00d7): unconfirmed, wait",
    "SKYGOLD above trigger on weak vol (1.5\u00d7): unconfirmed, wait"
   ]
+ },
+ {
+  "date": "2026-10-08",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "\u26a0 ATLANTAELE distribution \u2014 -3.7% on 2.2\u00d7 vol: watch for a top",
+   "SELL \u2014 ZENTEC closed below 50-DMA (\u20b91740.0) & 200-DMA: reduce / exit",
+   "\u26a0 ZENTEC distribution \u2014 -4.2% on 1.5\u00d7 vol: watch for a top",
+   "SELL \u2014 DATAPATTNS closed below 50-DMA (\u20b94505.0): reduce / exit",
+   "SELL \u2014 LODHA closed below 50-DMA (\u20b91184.0): reduce / exit",
+   "SELL \u2014 KSOLVES closed below 50-DMA (\u20b9265.2) & 200-DMA: reduce / exit",
+   "SELL \u2014 JSLL closed below 50-DMA (\u20b9512.0) & 200-DMA: reduce / exit",
+   "\u26a0 JSLL distribution \u2014 -8.6% on 5.4\u00d7 vol: watch for a top",
+   "SELL \u2014 NAM-INDIA STOP-LOSS HIT \u20b91039.4 \u2264 \u20b91114: exit / review",
+   "NAVINFLUOR above pivot on weak vol (0.4\u00d7): unconfirmed, wait",
+   "RADICO above pivot on weak vol (0.7\u00d7): unconfirmed, wait",
+   "RRKABEL above trigger on weak vol (0.6\u00d7): unconfirmed, wait",
+   "BUY \u2014 SKYGOLD NEW HIGH \u20b9884.5 &gt; trigger \u20b9638.0 on 2.3\u00d7 vol \u00b7 initial stop loss \u2248 \u20b9587"
+  ]
  }
 ]
