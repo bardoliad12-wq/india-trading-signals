@@ -1219,5 +1219,24 @@
    "RADICO above pivot on weak vol (1.1\u00d7): unconfirmed, wait",
    "SKYGOLD above trigger on weak vol (0.9\u00d7): unconfirmed, wait"
   ]
+ },
+ {
+  "date": "2026-10-23",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "SELL \u2014 ATLANTAELE closed below 50-DMA (\u20b91745.1): reduce / exit",
+   "SELL \u2014 ZENTEC closed below 50-DMA (\u20b91723.1) & 200-DMA: reduce / exit",
+   "SELL \u2014 DATAPATTNS closed below 50-DMA (\u20b94421.7) & 200-DMA: reduce / exit",
+   "SELL \u2014 LODHA closed below 50-DMA (\u20b91151.6) & 200-DMA: reduce / exit",
+   "SELL \u2014 KSOLVES closed below 50-DMA (\u20b9258.5) & 200-DMA: reduce / exit",
+   "\u26a0 KSOLVES distribution \u2014 -10.2% on 8.3\u00d7 vol: watch for a top",
+   "SELL \u2014 JSLL closed below 50-DMA (\u20b9475.1) & 200-DMA: reduce / exit",
+   "SELL \u2014 NAM-INDIA STOP-LOSS HIT \u20b9922.6 \u2264 \u20b91114: exit / review",
+   "\u26a0 NAM-INDIA distribution \u2014 -5.5% on 2.8\u00d7 vol: watch for a top",
+   "APPROACHING \u2014 NAVINFLUOR \u20b97668.5, -1.8% from pivot \u20b97810.0",
+   "APPROACHING \u2014 RADICO \u20b94157.3, -0.1% from pivot \u20b94161.8",
+   "BUY \u2014 SKYGOLD NEW HIGH \u20b91046.8 &gt; trigger \u20b9638.0 on 1.5\u00d7 vol \u00b7 initial stop loss \u2248 \u20b9587"
+  ]
  }
 ]
