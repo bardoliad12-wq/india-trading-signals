@@ -1272,5 +1272,23 @@
    "BUY \u2014 RADICO BREAKOUT \u20b94290.0 &gt; pivot \u20b94161.8 on 4.6\u00d7 vol \u00b7 initial stop loss \u2248 \u20b93829",
    "BUY \u2014 SKYGOLD NEW HIGH \u20b9935.2 &gt; trigger \u20b9638.0 on 4.1\u00d7 vol \u00b7 initial stop loss \u2248 \u20b9587"
   ]
+ },
+ {
+  "date": "2026-10-28",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "SELL \u2014 ATLANTAELE closed below 50-DMA (\u20b91743.2): reduce / exit",
+   "SELL \u2014 ZENTEC closed below 50-DMA (\u20b91706.4) & 200-DMA: reduce / exit",
+   "SELL \u2014 DATAPATTNS closed below 50-DMA (\u20b94389.8): reduce / exit",
+   "SELL \u2014 LODHA closed below 50-DMA (\u20b91137.8) & 200-DMA: reduce / exit",
+   "SELL \u2014 KSOLVES closed below 50-DMA (\u20b9254.4) & 200-DMA: reduce / exit",
+   "SELL \u2014 JSLL closed below 50-DMA (\u20b9464.6) & 200-DMA: reduce / exit",
+   "SELL \u2014 NAM-INDIA STOP-LOSS HIT \u20b9922.5 \u2264 \u20b91114: exit / review",
+   "BUY \u2014 NAVINFLUOR BREAKOUT \u20b98501.0 &gt; pivot \u20b97810.0 on 2.7\u00d7 vol \u00b7 initial stop loss \u2248 \u20b97185",
+   "BUY \u2014 BAJAJ-AUTO BREAKOUT \u20b910485.0 &gt; pivot \u20b910298.0 on 3.6\u00d7 vol \u00b7 initial stop loss \u2248 \u20b99474",
+   "APPROACHING \u2014 RADICO \u20b94135.1, -0.6% from pivot \u20b94161.8",
+   "BUY \u2014 SKYGOLD NEW HIGH \u20b9858.3 &gt; trigger \u20b9638.0 on 5.0\u00d7 vol \u00b7 initial stop loss \u2248 \u20b9587"
+  ]
  }
 ]
