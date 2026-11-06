@@ -1392,5 +1392,23 @@
    "BUY \u2014 RADICO BREAKOUT \u20b94525.0 &gt; pivot \u20b94161.8 on 1.8\u00d7 vol \u00b7 initial stop loss \u2248 \u20b93829",
    "SKYGOLD above trigger on weak vol (1.1\u00d7): unconfirmed, wait"
   ]
+ },
+ {
+  "date": "2026-11-06",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "SELL \u2014 ATLANTAELE STOP-LOSS HIT \u20b91462.1 \u2264 \u20b91500: exit / review",
+   "SELL \u2014 DATAPATTNS closed below 50-DMA (\u20b94281.1) & 200-DMA: reduce / exit",
+   "\u26a0 DATAPATTNS distribution \u2014 -4.9% on 1.9\u00d7 vol: watch for a top",
+   "SELL \u2014 KSOLVES closed below 50-DMA (\u20b9245.3) & 200-DMA: reduce / exit",
+   "SELL \u2014 JSLL closed below 50-DMA (\u20b9440.7) & 200-DMA: reduce / exit",
+   "\u26a0 JSLL distribution \u2014 -6.6% on 1.5\u00d7 vol: watch for a top",
+   "SELL \u2014 NAM-INDIA STOP-LOSS HIT \u20b91065.2 \u2264 \u20b91114: exit / review",
+   "BUY \u2014 NAVINFLUOR BREAKOUT \u20b99010.0 &gt; pivot \u20b97810.0 on 1.5\u00d7 vol \u00b7 initial stop loss \u2248 \u20b97185",
+   "BUY \u2014 BAJAJ-AUTO BREAKOUT \u20b910900.0 &gt; pivot \u20b910298.0 on 1.9\u00d7 vol \u00b7 initial stop loss \u2248 \u20b99474",
+   "RADICO above pivot on weak vol (0.6\u00d7): unconfirmed, wait",
+   "SKYGOLD above trigger on weak vol (0.6\u00d7): unconfirmed, wait"
+  ]
  }
 ]
