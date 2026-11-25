@@ -1600,5 +1600,20 @@
    "RADICO above pivot on weak vol (1.0\u00d7): unconfirmed, wait",
    "SKYGOLD above trigger on weak vol (1.2\u00d7): unconfirmed, wait"
   ]
+ },
+ {
+  "date": "2026-11-25",
+  "fetched": 16,
+  "of": 16,
+  "alerts": [
+   "SELL \u2014 ATLANTAELE STOP-LOSS HIT \u20b91435.1 \u2264 \u20b91500: exit / review",
+   "SELL \u2014 KSOLVES closed below 50-DMA (\u20b9233.0) & 200-DMA: reduce / exit",
+   "SELL \u2014 JSLL closed below 50-DMA (\u20b9403.5) & 200-DMA: reduce / exit",
+   "SELL \u2014 NAM-INDIA STOP-LOSS HIT \u20b91035.5 \u2264 \u20b91114: exit / review",
+   "NAVINFLUOR above pivot on weak vol (1.0\u00d7): unconfirmed, wait",
+   "BAJAJ-AUTO above pivot on weak vol (1.2\u00d7): unconfirmed, wait",
+   "RADICO above pivot on weak vol (1.0\u00d7): unconfirmed, wait",
+   "SKYGOLD above trigger on weak vol (1.2\u00d7): unconfirmed, wait"
+  ]
  }
 ]
